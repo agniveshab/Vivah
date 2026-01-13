@@ -1,8 +1,6 @@
 # Vivah - Indian Luxury Wedding Planner
 
 **Vivah** is a premium, full-stack web application designed to simplify and elevate the Indian wedding planning experience. From discovering top-tier vendors to managing budgets and guest lists, Vivah provides a seamless, aesthetically pleasing digital assistant for modern couples.
-
-![Vivah Landing Page](./client/public/screenshot-placeholder.png)
 *(Note: Replace with actual screenshot path if available, or remove this line)*
 
 ## ✨ Features
