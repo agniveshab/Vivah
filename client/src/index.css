@@ -1,0 +1,136 @@
+:root {
+  /* Brand Colors */
+  --color-primary: #8B0000;
+  /* Deep Royal Red */
+  --color-primary-light: #B22222;
+  --color-secondary: #D4AF37;
+  /* Gold */
+  --color-secondary-light: #F4CF57;
+
+  /* Backgrounds */
+  --color-bg: #FAFAF5;
+  /* Ivory/Cream */
+  --color-bg-paper: #FFFFFF;
+  --color-bg-subtle: #F3F3E8;
+
+  /* Text */
+  --color-text: #1A1A1A;
+  --color-text-muted: #666666;
+  --color-text-light: #FAFAFA;
+  /* Text on Primary/Dark backgrounds */
+
+  /* Borders & Dividers */
+  --color-border: #E5E5E5;
+  --color-divider: #D4AF37;
+  /* Gold divider */
+
+  /* Architecture */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  /* Shadows (Soft & Premium) */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-gold: 0 4px 14px 0 rgba(212, 175, 55, 0.3);
+
+  /* Typography */
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Inter', sans-serif;
+}
+
+/* Dark Mode Preference */
+:root[class~="dark"] {
+  --color-bg: #0F172A;
+  /* Midnight Blue/Slate */
+  --color-bg-paper: #1E293B;
+  --color-bg-subtle: #020617;
+
+  --color-text: #F8FAFC;
+  --color-text-muted: #94A3B8;
+
+  --color-border: #334155;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([class~="light"]) {
+    --color-bg: #0F172A;
+    /* Midnight Blue/Slate */
+    --color-bg-paper: #1E293B;
+    --color-bg-subtle: #020617;
+
+    --color-text: #F8FAFC;
+    --color-text-muted: #94A3B8;
+
+    --color-border: #334155;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secondary);
+}

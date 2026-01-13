@@ -1,0 +1,127 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String?
+  phone        String?   @unique
+  googleId     String?   @unique
+  role         String    @default("USER") // Was Enum Role
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  wedding       Wedding?
+  vendorProfile VendorProfile?
+  reviews       Review[]
+}
+
+model VendorProfile {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id])
+  businessName String
+  description String?
+  city        String
+  rating      Float    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  services    VendorService[]
+  bookings    Booking[]
+}
+
+model VendorService {
+  id              String        @id @default(uuid())
+  vendorProfileId String
+  vendorProfile   VendorProfile @relation(fields: [vendorProfileId], references: [id])
+  name            String
+  description     String?
+  price           Float
+  priceUnit       String?
+}
+
+model Wedding {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  name      String
+  date      DateTime?
+  budget    Float?
+  location  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ceremonies  Ceremony[]
+  guests      Guest[]
+  bookings    Booking[]
+  budgetItems BudgetItem[]
+}
+
+model Ceremony {
+  id        String       @id @default(uuid())
+  weddingId String
+  wedding   Wedding      @relation(fields: [weddingId], references: [id])
+  type      String       // Was Enum CeremonyType
+  name      String?
+  date      DateTime
+  location  String?
+  description String?
+}
+
+model Guest {
+  id        String      @id @default(uuid())
+  weddingId String
+  wedding   Wedding     @relation(fields: [weddingId], references: [id])
+  name      String
+  phone     String?
+  email     String?
+  status    String      @default("INVITED") // Was Enum GuestStatus
+  group     String?
+}
+
+model BudgetItem {
+  id        String   @id @default(uuid())
+  weddingId String
+  wedding   Wedding  @relation(fields: [weddingId], references: [id])
+  category  String
+  item      String
+  estimatedCost Float
+  actualCost    Float?
+  paidAmount    Float   @default(0)
+}
+
+model Booking {
+  id              String        @id @default(uuid())
+  weddingId       String
+  wedding         Wedding       @relation(fields: [weddingId], references: [id])
+  vendorProfileId String
+  vendorProfile   VendorProfile @relation(fields: [vendorProfileId], references: [id])
+  status          String        @default("PENDING") // Was Enum BookingStatus
+  date            DateTime
+  amount          Float?
+  notes           String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  review          Review?
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  bookingId String   @unique
+  booking   Booking  @relation(fields: [bookingId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+}
